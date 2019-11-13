@@ -10,25 +10,25 @@ function Horns(data) {
 }
 Horns.all = [];
 
-Horns.prototype.render = function() {
-
-  // Create a new empty div tag
-  let hornOutput = $('<div></div>');
-      hornOutput.addClass(this.keyword);
+Horns.prototype.render = function() { 
 
   // clone (copy) the html from inside the photo-template
-  let template = $('#photo-template').html();
+//   let template = $('#photo-template').html();
 
-  // Add the template to the output div
-  hornOutput.html( template );
+var source   = $("#entry-template").html();  
+// console.log('source : ', source);
 
-  // Put the data in
-  hornOutput.find('h2').text( this.title );
-  hornOutput.find('img').attr('src', this.image_url);
-  hornOutput.find('p').text(this.description);
+var template = Handlebars.compile(source);
+var html;
 
-  $('main').append(hornOutput);
+Horns.all.forEach( thing =>
+    {
+         html = template(thing);
+        
+    });
+    console.log('html : ', html);
 
+$('#photo-template').append(html);
 };
 
 function populateSelectBox() {
