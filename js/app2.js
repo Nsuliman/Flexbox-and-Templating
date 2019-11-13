@@ -11,13 +11,7 @@ function Horns(data) {
 Horns.all = [];
 
 Horns.prototype.render = function() { 
-
-  // clone (copy) the html from inside the photo-template
-//   let template = $('#photo-template').html();
-
 var source   = $("#entry-template").html();  
-// console.log('source : ', source);
-
 var template = Handlebars.compile(source);
 var html;
 
@@ -26,8 +20,6 @@ Horns.all.forEach( thing =>
          html = template(thing);
         
     });
-    console.log('html : ', html);
-
 $('#photo-template').append(html);
 };
 
