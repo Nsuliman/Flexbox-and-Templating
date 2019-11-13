@@ -5,3 +5,8 @@ div {
   img {
     max-width: 100%;
   }
+  nav 
+  {
+    width: 200px;
+    height: 100px;
+  }

@@ -56,10 +56,9 @@ $('select').on('change', function() {
     $('div').hide();
     $(`.${selected}`).fadeIn(800);
   }
-  
 });
 
-$.get('../data/page-1.json')
+$.get('../data/page-2.json')
   .then( data => {
     data.forEach( (thing) => {
       let horn = new Horns(thing);
