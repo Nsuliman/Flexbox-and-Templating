@@ -21,3 +21,14 @@
 ## Finish time: 11:55 am 
 
 ## Actual time needed to complete: about 40 min 
+
+
+## Number and name of feature: Sorting
+
+## Estimate of time needed to complete: an hour 
+
+## Start time: 11:55 am 
+
+## Finish time: 01:50 am 
+
+## Actual time needed to complete: about 2 hours 
