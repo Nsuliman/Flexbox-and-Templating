@@ -42,7 +42,7 @@ function populateSelectBox() {
     }
   });
 
-  console.log(seen);
+  // console.log(seen);
 }
 
 $('select').on('change', function() {

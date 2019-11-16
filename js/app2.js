@@ -9,19 +9,16 @@ function Horns(data) {
   Horns.all.push(this);
 }
 Horns.all = [];
+// var html = [];
 
-Horns.prototype.render = function() { 
-var source   = $("#entry-template").html();  
-var template = Handlebars.compile(source);
-var html;
-
-Horns.all.forEach( thing =>
-    {
-         html = template(thing);
-    });
-    console.log('Horns.all new Array  : ', Horns.all);
-
-$('#photo-template').append(html);
+Horns.prototype.render = function() {
+  var source   = $('#entry-template').html();
+  var template = Handlebars.compile(source);
+  var html;
+  Horns.all.forEach( thing =>  {
+    html = template(thing);
+  });
+  $('#photo-template').append(html);
 };
 
 function populateSelectBox() {
@@ -34,59 +31,14 @@ function populateSelectBox() {
       seen[horn.keyword] = true;
     }
   });
-
-  // console.log(seen);
 }
-var array = [];
+
 $('select').on('change', function() {
   let selected = $(this).val();
-  if (selected === 'default')
-  {
-    
-    Horns.all.sort((obj1,obj2) => {return obj1.title < obj2.title ? -1 : 1;});
-
-    // $('#photo-template').empty();
-      // var source   = $("#entry-template").html();  
-      // var template = Handlebars.compile(source);
-      // var  x = $('#photo-template'); 
-      // console.log('Horns.all Old Array  : ', Horns.all );
-      $('#photo-template').html('');
-      // Horns.all.forEach(animal => {
-      //   // animal.render();
-      //   // console.log(animal);
-      // });
-
-
-      var source   = $("#entry-template").html();  
-var template = Handlebars.compile(source);
-var html;
-
-Horns.all.forEach( thing =>
-    {
-         html = template(thing);
-         $('#photo-template').append(html);
-    });
-    // console.log('Horns.all new Array  : ', Horns.all);
-
-
-
-      // Horns.all.forEach( thing =>
-      //     {
-      //          html = template(thing);
-      //          array.push(html);
-               
-      //         });
-      //         for (var i = 0 ; i < array.length ; i++){
-      //           var y = array[i];
-      //           console.log(y);
-      //           x.append(y).show();
-      //         }
-
-    // $('div').show();
-    // Horns.render();
-    // $(`.${selected}`).fadeIn(800);
-  }
-  else {
+  if (selected === 'default') {
+    $('div').show();
+    $(`.${selected}`).fadeIn(800);
+  }else {
     $('div').hide();
     $(`.${selected}`).fadeIn(800);
   }
@@ -101,15 +53,15 @@ $.get('../data/page-2.json')
   })
   .then( () => populateSelectBox() );
 
-  // $('button').on('click', function() {
-  //   let selected = $(this).val();
-  //   if (selected === 'default')
-  //   {
-  //     $('div').show();
-  //     $(`.${selected}`).fadeIn(800);
-  //   }
-  //   else {
-  //     $('div').hide();
-  //     $(`.${selected}`).fadeIn(800);
-  //   }
-  // });
+$('button').on('click', function() {
+  Horns.all.sort((obj1,obj2) => {return obj1.title < obj2.title ? -1 : 1;});
+  $('#photo-template').html('');
+  var source   = $('#entry-template').html();
+  var template = Handlebars.compile(source);
+  var html = [];
+  Horns.all.forEach( thing =>{
+    html.push(template(thing));
+  });
+  // console.log('html : ', html);
+  $('#photo-template').append(html);
+});
