@@ -9,26 +9,16 @@ function Horns(data) {
   Horns.all.push(this);
 }
 Horns.all = [];
+// var html = [];
 
 Horns.prototype.render = function() {
-
-  // Create a new empty div tag
-  let hornOutput = $('<div></div>');
-      hornOutput.addClass(this.keyword);
-
-  // clone (copy) the html from inside the photo-template
-  let template = $('#photo-template').html();
-
-  // Add the template to the output div
-  hornOutput.html( template );
-
-  // Put the data in
-  hornOutput.find('h2').text( this.title );
-  hornOutput.find('img').attr('src', this.image_url);
-  hornOutput.find('p').text(this.description);
-
-  $('main').append(hornOutput);
-
+  var source   = $('#entry-template').html();
+  var template = Handlebars.compile(source);
+  var html;
+  Horns.all.forEach( thing =>  {
+    html = template(thing);
+  });
+  $('#photo-template').append(html);
 };
 
 function populateSelectBox() {
@@ -41,25 +31,20 @@ function populateSelectBox() {
       seen[horn.keyword] = true;
     }
   });
-
-  // console.log(seen);
 }
 
 $('select').on('change', function() {
   let selected = $(this).val();
-  if (selected === 'default')
-  {
+  if (selected === 'default') {
     $('div').show();
     $(`.${selected}`).fadeIn(800);
-  }
-  else {
+  }else {
     $('div').hide();
     $(`.${selected}`).fadeIn(800);
   }
-  
 });
 
-$.get('../data/page-1.json')
+$.get('../data/page-2.json')
   .then( data => {
     data.forEach( (thing) => {
       let horn = new Horns(thing);
@@ -68,3 +53,15 @@ $.get('../data/page-1.json')
   })
   .then( () => populateSelectBox() );
 
+$('button').on('click', function() {
+  Horns.all.sort((obj1,obj2) => {return obj1.title < obj2.title ? -1 : 1;});
+  $('#photo-template').html('');
+  var source   = $('#entry-template').html();
+  var template = Handlebars.compile(source);
+  var html = [];
+  Horns.all.forEach( thing =>{
+    html.push(template(thing));
+  });
+  // console.log('html : ', html);
+  $('#photo-template').append(html);
+});
