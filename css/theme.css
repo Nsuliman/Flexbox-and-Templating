@@ -23,10 +23,16 @@ div{
   width: 295px;
   height: 300px;
   border: 1px solid #000;
-  float:left;
+  /* float:left; */
   margin:10px;
   background-color:  rgb(255, 187, 0);
   text-align: center;
+}
+
+section{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 div *{
