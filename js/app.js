@@ -42,13 +42,21 @@ function populateSelectBox() {
     }
   });
 
-  console.log(seen);
+  // console.log(seen);
 }
 
 $('select').on('change', function() {
   let selected = $(this).val();
-  $('div').hide();
-  $(`.${selected}`).fadeIn(800);
+  if (selected === 'default')
+  {
+    $('div').show();
+    $(`.${selected}`).fadeIn(800);
+  }
+  else {
+    $('div').hide();
+    $(`.${selected}`).fadeIn(800);
+  }
+  
 });
 
 $.get('../data/page-1.json')
@@ -59,3 +67,4 @@ $.get('../data/page-1.json')
     });
   })
   .then( () => populateSelectBox() );
+
