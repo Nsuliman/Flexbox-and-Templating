@@ -1,7 +1,64 @@
+body {
+
+  background-color: rgb(17, 78, 78);
+}
+
+h1 {
+
+  color: rgb(51, 2, 2);
+  text-align: center;
+  background-color: rgb(228, 228, 240);
+  background-color: rgb(232, 232, 241);
+  border-radius: 50px;
+}
+
+header {
+  border-bottom: 10px solid pink;
+  border-radius: 30px;
+}
+
+main {
+  font-family: 'Playfair Display', serif;
+  font-weight: bolder;
+}
+
+#h2style {
+  color: rgb(119, 9, 114);
+}
+
+select {
+  color: black;
+  padding: 10px;
+  background-color: aqua;
+  border: 10px solid pink;
+  border-radius: 5px;
+  font-weight: bolder;
+  font-size: larger;
+}
+
+option {
+  color: navy;
+  background-color: rgb(232, 232, 241);
+  border-radius: 5px;
+  font-weight: bolder;
+  font-size: large;
+}
+
 div {
-    border: 1px solid #111;
-  }
-  
-  img {
-    max-width: 100%;
-  }
+  color: navy;
+  background-color: rgb(232, 232, 241);
+  border-radius: 60px;}
+
+img {
+  max-width: 80%;
+}
+footer {
+
+  color: rgb(189, 88, 88);
+  text-align: center;
+  background-color: rgb(228, 228, 240);
+  font-weight: bolder;
+  font-size: x-large;
+  background-color: rgb(232, 232, 241);
+  border-radius: 50px;
+}
