@@ -1,5 +1,6 @@
 h1 {
-  margin: 20px auto; 
+  margin-top: 5px ; 
+  margin-bottom: 40px;
 }
 
 div {
@@ -17,8 +18,7 @@ main {
 
 header {
   text-align: center;
-  margin: 20px auto;
-  padding: 30px;
+  padding: 40px;
 }
 
 header #page1, #page2 {
@@ -28,7 +28,7 @@ header #page1, #page2 {
 
 }
 
-#sortImages {
+#sortImages,#sortImagesH {
   margin-left: 20px;
   margin-right: 20px;
 }

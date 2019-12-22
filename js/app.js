@@ -11,7 +11,7 @@
     "horns": 1
 */
 
-function Horns(data) {                                         // bulit constructor function 
+function Horns(data) {                                         // bulid constructor function 
 
   // constructor function properties 
 
@@ -122,8 +122,14 @@ $('#page2').on('click', function () {
 // Handlebars for both page and we already invoked it on the click event for each page 
 Horns.prototype.render1 = function () {                                                  // function to render page1 and page 2 by clicking 
   let  temp = $('#entry-template').html();                                             // get the handlebars template 
+  // console.log('temp : ', temp);
+
   let tempCompile = Handlebars.compile(temp);                                           // compile the template and convert it to function 
+  // console.log('tempCompile : ', tempCompile);
+
   let tempObj = tempCompile(this);                                                       // take the function and passes to it the object to fullfill the token template 
+  // console.log('tempObj : ', tempObj);
+  
   $('#photo-template').append(tempObj);                                                 // print it out on the page 
 };// end of render1 function 
 
@@ -143,7 +149,7 @@ function showImages() {
       });  // end of foreach loop
     })// end of .then
     .then(() => populateSelectBox());                                             // fullfill the select options 
-    
+
 }// end of showimages function 
 
 
@@ -153,12 +159,14 @@ $(document).ready(function () {                        // this fuction to make o
 
 /******************************************************* Sorting Images ***********************************************/
 
+
+// Sorting By Title EventHandler 
 $('#sortImages').on('click', function () {
   let sortedArr = [];                                                                                     // to add the sorted images to it then show it up 
   // Horns.all.sort((obj1, obj2) => { return obj1.title.toLowerCase() > obj2.title.toLowerCase() });         // sort the array of objects
- 
+   
   Horns.all.sort((obj1,obj2) => {return obj1.title < obj2.title ? -1 : 1;});
-  
+
   // console.log('on sorted page  : ');
   // $('#photo-template').remove();                                                                     // remove() not working with sort so, be aware of that
   $('#photo-template').empty();                                                                          // clear homepage to render the images with sorting 
@@ -171,4 +179,29 @@ $('#sortImages').on('click', function () {
       sortedArr.push(tempCompile(horn));
     });
   $('#photo-template').append(sortedArr);
-});// end of click sort button
+  // console.log(' sortedArr by titlt : ', sortedArr );
+
+});// end of click sort by title button
+
+
+// Sorting By Number of Horns EventHandler 
+$('#sortImagesH').on('click', function () 
+{
+  let sortedArrH = [];
+
+  Horns.all.sort((obj1,obj2) => {return obj1.horns < obj2.horns ? -1 : 1;});
+
+  $('#photo-template').empty(); 
+
+  let temp = $('#entry-template').html(); 
+  let tempCompile = Handlebars.compile(temp); 
+
+  Horns.all.forEach(horn =>
+    {
+      sortedArrH.push(tempCompile(horn));
+      // console.log('horn.horns : ', horn.horns);
+    });
+  $('#photo-template').append(sortedArrH);
+
+  // console.log(' sortedArrH by number of horns : ', sortedArrH );
+}); // end of click sort by number of horns button

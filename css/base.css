@@ -83,7 +83,7 @@ header #page1, #page2 {
 }
 
 
-#sortImages {
+#sortImages,#sortImagesH {
 
   color: rgb(17, 41, 2);
   font-size: large;
