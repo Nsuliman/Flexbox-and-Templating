@@ -51,6 +51,9 @@ Horns.prototype.render = function () {
 
 $('#page1').on('click', function()
 {
+  $('select').empty();                                                     // we need to clear option tag to add the 2nd page options
+  $('select').html('<option value="default">Filter by Keyword</option>');  // after clearing what inside select tag which are options tag , we need to set up first option (filter by keyword)
+ 
   $('#photo-template').empty();                                   // clear the webpage to avoid the duplicates 
   Horns.all = [];                                                 // make sure the array of object also claer to avoid add dupliacted values to option tag 
   $.get('../data/page-1.json')                                   // get needed data from JSON file 
@@ -130,7 +133,24 @@ Horns.prototype.render1 = function() {                                          
 
 /**************************** Display Images Once page loaded and be sure if the page is ready **********************/
 
+function showImages () {
+
+  $('select').empty();                                                            // clear select options 
+  $('select').html('<option value="default">Filter by Keyword</option>');         // add the intial option for select 
+  $.get('../data/page-1.json')                                                    // get json file for page 1 
+  .then(data =>                                                                   // takes the data 
+    {
+      data.forEach(hornobject => {                                                // looping for each object in the array 
+        let hhorn = new Horns(hornobject);                                         // make a instance from constructor function
+        hhorn.render1();                                                          // render it for each object after built it 
+      });  // end of foreach loop
+    })// end of .then
+    .then(() => populateSelectBox());                                             // fullfill the select options 
+
+}// end of showimages function 
+
+
 $(document).ready(function () {                        // this fuction to make our page loaded successfully then do our code  
-  showImages(1);                                      // as instructions we need to load page 1 images once page loaded 
+  showImages();                                      // as instructions we need to load page 1 images once webpage loaded 
 }); // end of ready function 
 
