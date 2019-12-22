@@ -60,7 +60,7 @@ $('#page1').on('click', function()
     data.forEach(hornobject => {                              // for loop to get every object in the array 
       // console.log('hornobject : ', hornobject);             // print out each object alone 
       let hhorn = new Horns(hornobject);                        // create new instance from constructor function 
-      hhorn.render();                                       // call render function using object since the function is a prototype function (part of constructor function)
+      hhorn.render1();                                       // call render function using object since the function is a prototype function (part of constructor function)
     }); //end of Foreach 
   }) // end of .THEN
   .then(() => populateSelectBox());                             // to show up the selected keyword images (filtering)
@@ -102,8 +102,10 @@ $('select').on('change', function ()                                            
 
 /******************************************************* Display Images - Page 2 ***********************************************/
 
-$('#page1').on('click', function()
+$('#page2').on('click', function()
 {
+  $('select').empty();                                                     // we need to clear option tag to add the 2nd page options
+  $('select').html('<option value="default">Filter by Keyword</option>');  // after clearing what inside select tag which are options tag , we need to set up first option (filter by keyword)
   $('#photo-template').empty();                             
   Horns.all = [];
   $.get('../data/page-2.json')
@@ -111,8 +113,16 @@ $('#page1').on('click', function()
     {
       data.forEach(hornobject => {  
         let hhorn = new Horns(hornobject); 
-        hhorn.render();
+        hhorn.render1();
       });
     })
     .then(() => populateSelectBox());
 });
+
+// Handlebars for both page and we already invoked it on the click event for each page 
+Horns.prototype.render1 = function() {                                                  // function to render page1 and page 2 by clicking 
+  var temp   = $('#entry-template').html();                                             // get the handlebars template 
+  var tempCompile = Handlebars.compile(temp);                                           // compile the template and convert it to function 
+  var tempObj = tempCompile(this);                                                       // take the function and passes to it the object to fullfill the token template 
+  $('#photo-template').append(tempObj);                                                 // print it out on the page 
+};
