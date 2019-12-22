@@ -27,8 +27,6 @@ function Horns(data) {                                         // bulid construc
 
 Horns.all = [];                                                  // array to store all objects once created 
 
-
-
 /******************************************************* Display Images - Page 1 ***********************************************/
 
 Horns.prototype.render = function () {
