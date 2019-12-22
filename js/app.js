@@ -125,4 +125,12 @@ Horns.prototype.render1 = function() {                                          
   var tempCompile = Handlebars.compile(temp);                                           // compile the template and convert it to function 
   var tempObj = tempCompile(this);                                                       // take the function and passes to it the object to fullfill the token template 
   $('#photo-template').append(tempObj);                                                 // print it out on the page 
-};
+};// end of render1 function 
+
+
+/**************************** Display Images Once page loaded and be sure if the page is ready **********************/
+
+$(document).ready(function () {                        // this fuction to make our page loaded successfully then do our code  
+  showImages(1);                                      // as instructions we need to load page 1 images once page loaded 
+}); // end of ready function 
+
