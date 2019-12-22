@@ -21,6 +21,18 @@ header {
   padding: 30px;
 }
 
+header #page1, #page2 {
+
+  margin-left: 20px;
+  margin-right: 20px;
+
+}
+
+#sortImage {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
 footer {
   margin: 30px auto;
 }

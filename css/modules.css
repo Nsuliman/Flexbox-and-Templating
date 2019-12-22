@@ -10,3 +10,16 @@ footer {
 h1 {
     padding: 20px;
 }
+
+header #page1, #page2 {
+
+    padding: 10px; 
+    border: 5px solid; 
+    border-radius: 10px;
+}
+
+#sortImage {
+    padding: 10px; 
+    border: 5px solid; 
+    border-radius: 10px;
+}
