@@ -49,24 +49,23 @@ Horns.prototype.render = function () {
 
 }
 
-$('#page1').on('click', function()
-{
+$('#page1').on('click', function () {
   $('select').empty();                                                     // we need to clear option tag to add the 2nd page options
   $('select').html('<option value="default">Filter by Keyword</option>');  // after clearing what inside select tag which are options tag , we need to set up first option (filter by keyword)
- 
+
   $('#photo-template').empty();                                   // clear the webpage to avoid the duplicates 
   Horns.all = [];                                                 // make sure the array of object also claer to avoid add dupliacted values to option tag 
   $.get('../data/page-1.json')                                   // get needed data from JSON file 
-  .then(data =>                                                // what to do next use .THEN 
-  {
-    // console.log('data : ', data);                          // print out all objects (array of objects)
-    data.forEach(hornobject => {                              // for loop to get every object in the array 
-      // console.log('hornobject : ', hornobject);             // print out each object alone 
-      let hhorn = new Horns(hornobject);                        // create new instance from constructor function 
-      hhorn.render1();                                       // call render function using object since the function is a prototype function (part of constructor function)
-    }); //end of Foreach 
-  }) // end of .THEN
-  .then(() => populateSelectBox());                             // to show up the selected keyword images (filtering)
+    .then(data =>                                                // what to do next use .THEN 
+    {
+      // console.log('data : ', data);                          // print out all objects (array of objects)
+      data.forEach(hornobject => {                              // for loop to get every object in the array 
+        // console.log('hornobject : ', hornobject);             // print out each object alone 
+        let hhorn = new Horns(hornobject);                        // create new instance from constructor function 
+        hhorn.render1();                                       // call render function using object since the function is a prototype function (part of constructor function)
+      }); //end of Foreach 
+    }) // end of .THEN
+    .then(() => populateSelectBox());                             // to show up the selected keyword images (filtering)
 }); // end of click function 
 
 /******************************************************* Filter  Images ***********************************************/
@@ -76,7 +75,7 @@ $('#page1').on('click', function()
 function populateSelectBox() {
 
 
-  // Horns.all.sort((obj1,obj2) => {return obj1.title < obj2.title ? -1 : 1;});       // tried to sort it but here I couldn't, ignore this line of code 
+  // Horns.all.sort((obj1,obj2) => {return obj1.title.toLowerCase() > obj2.title.toLowerCase()});       // tried to sort it but here I couldn't, ignore this line of code 
 
   let seen = [];                                                    // empty array to put unique keywords into it 
   let select = $('select');                                          // put the keywords in the select tag options so, add select and assign to variable
@@ -105,17 +104,15 @@ $('select').on('change', function ()                                            
 
 /******************************************************* Display Images - Page 2 ***********************************************/
 
-$('#page2').on('click', function()
-{
+$('#page2').on('click', function () {
   $('select').empty();                                                     // we need to clear option tag to add the 2nd page options
   $('select').html('<option value="default">Filter by Keyword</option>');  // after clearing what inside select tag which are options tag , we need to set up first option (filter by keyword)
-  $('#photo-template').empty();                             
+  $('#photo-template').empty();
   Horns.all = [];
   $.get('../data/page-2.json')
-  .then(data => 
-    {
-      data.forEach(hornobject => {  
-        let hhorn = new Horns(hornobject); 
+    .then(data => {
+      data.forEach(hornobject => {
+        let hhorn = new Horns(hornobject);
         hhorn.render1();
       });
     })
@@ -123,22 +120,22 @@ $('#page2').on('click', function()
 });
 
 // Handlebars for both page and we already invoked it on the click event for each page 
-Horns.prototype.render1 = function() {                                                  // function to render page1 and page 2 by clicking 
-  var temp   = $('#entry-template').html();                                             // get the handlebars template 
-  var tempCompile = Handlebars.compile(temp);                                           // compile the template and convert it to function 
-  var tempObj = tempCompile(this);                                                       // take the function and passes to it the object to fullfill the token template 
+Horns.prototype.render1 = function () {                                                  // function to render page1 and page 2 by clicking 
+  let  temp = $('#entry-template').html();                                             // get the handlebars template 
+  let tempCompile = Handlebars.compile(temp);                                           // compile the template and convert it to function 
+  let tempObj = tempCompile(this);                                                       // take the function and passes to it the object to fullfill the token template 
   $('#photo-template').append(tempObj);                                                 // print it out on the page 
 };// end of render1 function 
 
 
 /**************************** Display Images Once page loaded and be sure if the page is ready **********************/
 
-function showImages () {
+function showImages() {
 
   $('select').empty();                                                            // clear select options 
   $('select').html('<option value="default">Filter by Keyword</option>');         // add the intial option for select 
   $.get('../data/page-1.json')                                                    // get json file for page 1 
-  .then(data =>                                                                   // takes the data 
+    .then(data =>                                                                   // takes the data 
     {
       data.forEach(hornobject => {                                                // looping for each object in the array 
         let hhorn = new Horns(hornobject);                                         // make a instance from constructor function
@@ -146,7 +143,7 @@ function showImages () {
       });  // end of foreach loop
     })// end of .then
     .then(() => populateSelectBox());                                             // fullfill the select options 
-
+    
 }// end of showimages function 
 
 
@@ -154,3 +151,24 @@ $(document).ready(function () {                        // this fuction to make o
   showImages();                                      // as instructions we need to load page 1 images once webpage loaded 
 }); // end of ready function 
 
+/******************************************************* Sorting Images ***********************************************/
+
+$('#sortImages').on('click', function () {
+  let sortedArr = [];                                                                                     // to add the sorted images to it then show it up 
+  // Horns.all.sort((obj1, obj2) => { return obj1.title.toLowerCase() > obj2.title.toLowerCase() });         // sort the array of objects
+ 
+  Horns.all.sort((obj1,obj2) => {return obj1.title < obj2.title ? -1 : 1;});
+  
+  // console.log('on sorted page  : ');
+  // $('#photo-template').remove();                                                                     // remove() not working with sort so, be aware of that
+  $('#photo-template').empty();                                                                          // clear homepage to render the images with sorting 
+
+  let temp = $('#entry-template').html(); 
+  let tempCompile = Handlebars.compile(temp); 
+
+  Horns.all.forEach(horn =>
+    {
+      sortedArr.push(tempCompile(horn));
+    });
+  $('#photo-template').append(sortedArr);
+});// end of click sort button
