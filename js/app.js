@@ -49,7 +49,11 @@ Horns.prototype.render = function () {
 
 }
 
-$.get('../data/page-1.json')                                   // get needed data from JSON file 
+$('#page1').on('click', function()
+{
+  $('#photo-template').empty();                                   // clear the webpage to avoid the duplicates 
+  Horns.all = [];                                                 // make sure the array of object also claer to avoid add dupliacted values to option tag 
+  $.get('../data/page-1.json')                                   // get needed data from JSON file 
   .then(data =>                                                // what to do next use .THEN 
   {
     // console.log('data : ', data);                          // print out all objects (array of objects)
@@ -60,6 +64,7 @@ $.get('../data/page-1.json')                                   // get needed dat
     }); //end of Foreach 
   }) // end of .THEN
   .then(() => populateSelectBox());                             // to show up the selected keyword images (filtering)
+}); // end of click function 
 
 /******************************************************* Filter  Images ***********************************************/
 
@@ -97,12 +102,17 @@ $('select').on('change', function ()                                            
 
 /******************************************************* Display Images - Page 2 ***********************************************/
 
-$.get('../data/page-2.json')
-.then(data => 
-  {
-    data.forEach(hornobject => {  
-      let hhorn = new Horns(hornobject); 
-      hhorn.render();
-    });
-  })
-  .then(() => populateSelectBox());
+$('#page1').on('click', function()
+{
+  $('#photo-template').empty();                             
+  Horns.all = [];
+  $.get('../data/page-2.json')
+  .then(data => 
+    {
+      data.forEach(hornobject => {  
+        let hhorn = new Horns(hornobject); 
+        hhorn.render();
+      });
+    })
+    .then(() => populateSelectBox());
+});
